@@ -1,0 +1,22 @@
+li:hover,
+a:hover {
+  background-color: #ff3811;
+  color: white !important;
+  border-radius: 5px;
+}
+li > a.active {
+  background-color: #ff3811 !important;
+  color: white !important;
+  border-radius: 5px;
+}
+.btn-ap{
+    border: 2px solid #FF3811;
+    padding: 10px;
+    background-color: white;
+    color: #FF3811;
+}
+.btn-ap:hover{
+    border: 2px solid rgb(9, 9, 121);
+    background-color:white ;
+    color: rgb(9, 9, 121);
+}
