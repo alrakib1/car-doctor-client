@@ -1,6 +1,6 @@
 li:hover,
 a:hover {
-  background-color: #ff3811;
+  background-color: rgb(9, 9, 121);
   color: white !important;
   border-radius: 5px;
 }
@@ -11,7 +11,7 @@ li > a.active {
 }
 .btn-ap{
     border: 2px solid #FF3811;
-    padding: 10px;
+    padding: 5px;
     background-color: white;
     color: #FF3811;
 }
