@@ -1,7 +1,27 @@
 import { Link } from "react-router-dom";
 import login from "../../assets/images/login/login.svg";
+import { useContext } from "react";
+import { AuthContext } from "../../Providers/AuthProvider";
 
 const SignUp = () => {
+  const {createUser} = useContext(AuthContext)
+    const handleSignUp = e=>{
+        e.preventDefault();
+        const form = e.target;
+        const name = e.target.name.value;
+        const email = e.target.email.value;
+        const password = e.target.password.value;
+        console.log(name,email,password)
+        createUser(email,password).then(result=>{
+          const user = result.user;
+          console.log(user)
+        }).catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          // ..
+          console.log(errorMessage,errorCode)
+        })
+    }
   return (
     <div className="min-h-screen">
       <div className="flex flex-col gap-16 md:flex-row">
@@ -13,7 +33,7 @@ const SignUp = () => {
         <div className="md:w-1/2 border mt-10 rounded-lg">
           <h3 className="text-center text-5xl mt-10">Sign Up</h3>
           {/* form */}
-          <form className="card-body mt-7">
+          <form className="card-body mt-7" onSubmit={handleSignUp}>
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Name</span>
@@ -49,11 +69,11 @@ const SignUp = () => {
                 className="input input-bordered"
                 required
               />
-              <label className="label">
+              {/* <label className="label">
                 <a href="#" className="label-text-alt link link-hover">
                   Forgot password?
                 </a>
-              </label>
+              </label> */}
             </div>
             <div className="form-control mt-6">
               <button className="btn btn-discover text-white normal-case">
@@ -66,7 +86,7 @@ const SignUp = () => {
           </p>
           {/* icons */}
           <div className="flex justify-center gap-7 mb-5">
-            <div className="rounded-full bg-[#F5F5F8] w-12 h-12 flex justify-center items-center">
+            <div className="rounded-full bg-[#F5F5F8] w-12 h-12 flex justify-center items-center hover:cursor-pointer">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="31"
@@ -80,7 +100,7 @@ const SignUp = () => {
                 />
               </svg>
             </div>
-            <div className="rounded-full bg-[#F5F5F8] w-12 h-12 flex justify-center items-center">
+            <div className="rounded-full bg-[#F5F5F8] w-12 h-12 flex justify-center items-center hover:cursor-pointer">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="25"
@@ -98,7 +118,7 @@ const SignUp = () => {
                 />
               </svg>
             </div>
-            <div className="rounded-full bg-[#F5F5F8] w-12 h-12 flex justify-center items-center">
+            <div className="rounded-full bg-[#F5F5F8] w-12 h-12 flex justify-center items-center hover:cursor-pointer">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="20"
@@ -140,7 +160,7 @@ const SignUp = () => {
               </svg>
             </div>
           </div>
-          <p className=" text-center mb-5">Already have an account? <Link to='/login' className="text-[#FF3811]">Login</Link></p>
+          <p className=" text-center mb-5">Already have an account? <Link to='/login' className="text-[#FF3811] font-bold">Login</Link></p>
         </div>
       </div>
     </div>

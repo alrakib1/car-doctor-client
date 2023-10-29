@@ -8,7 +8,6 @@ const Services = () => {
       .then((res) => res.json())
       .then((data) => setServices(data));
   }, []);
-  console.log(services);
   return (
     <div className="mt-32">
       <div className="text-center space-y-5">
@@ -21,7 +20,7 @@ const Services = () => {
         </p>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12 mb-12">
-        {services.map((service) => (
+        {services?.map((service) => (
           <ServiceCard key={service._id} service={service}></ServiceCard>
         ))}
       </div>

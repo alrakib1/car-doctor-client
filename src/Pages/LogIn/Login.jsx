@@ -1,7 +1,29 @@
 import { Link } from "react-router-dom";
 import login from "../../assets/images/login/login.svg";
+import { useContext } from "react";
+import { AuthContext } from "../../Providers/AuthProvider";
 
 const Login = () => {
+  const {signIn} = useContext(AuthContext);
+    const handleLogIn =e =>{
+        e.preventDefault();
+        const form = e.target;
+        const email = e.target.email.value;
+        const password = e.target.password.value;
+        console.log(email,password)
+        signIn(email,password) .then((userCredential) => {
+          // Signed in 
+          const user = userCredential.user;
+          console.log(user)
+          // ...
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log(errorCode,errorMessage)
+        });
+      
+    }
   return (
     <div className="min-h-screen">
       <div className="flex flex-col gap-16 md:flex-row">
@@ -13,7 +35,7 @@ const Login = () => {
         <div className="md:w-1/2 border mt-10 rounded-lg">
           <h3 className="text-center text-5xl mt-10">Log In</h3>
           {/* form */}
-          <form className="card-body mt-7">
+          <form className="card-body mt-7" onSubmit={handleLogIn}>
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Email</span>
@@ -54,7 +76,7 @@ const Login = () => {
           </p>
           {/* icons */}
           <div className="flex justify-center gap-7 mb-5">
-            <div className="rounded-full bg-[#F5F5F8] w-12 h-12 flex justify-center items-center">
+            <div className="rounded-full bg-[#F5F5F8] w-12 h-12 flex justify-center items-center hover:cursor-pointer">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="31"
@@ -68,7 +90,7 @@ const Login = () => {
                 />
               </svg>
             </div>
-            <div className="rounded-full bg-[#F5F5F8] w-12 h-12 flex justify-center items-center">
+            <div className="rounded-full bg-[#F5F5F8] w-12 h-12 flex justify-center items-center hover:cursor-pointer">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="25"
@@ -86,7 +108,7 @@ const Login = () => {
                 />
               </svg>
             </div>
-            <div className="rounded-full bg-[#F5F5F8] w-12 h-12 flex justify-center items-center">
+            <div className="rounded-full bg-[#F5F5F8] w-12 h-12 flex justify-center items-center hover:cursor-pointer">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="20"
@@ -128,7 +150,7 @@ const Login = () => {
               </svg>
             </div>
           </div>
-          <p className=" text-center mb-5">Don't have an account? <Link to='/register' className="text-[#FF3811]">Sign Up</Link> here</p>
+          <p className=" text-center mb-5">Don't have an account? <Link to='/register' className="text-[#FF3811] font-bold">Sign Up</Link> here</p>
         </div>
       </div>
     </div>
