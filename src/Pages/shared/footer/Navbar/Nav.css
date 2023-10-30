@@ -10,13 +10,13 @@ li > a.active {
   border-radius: 5px;
 }
 .btn-ap{
-    border: 2px solid #FF3811;
+    border: 2px solid #FF3811 !important;
     padding: 5px;
-    background-color: white;
-    color: #FF3811;
+    background-color: white !important;
+    color: #FF3811 !important;
 }
 .btn-ap:hover{
-    border: 2px solid rgb(9, 9, 121);
-    background-color:white ;
-    color: rgb(9, 9, 121);
+    border: 2px solid rgb(9, 9, 121) !important;
+    background-color:white !important;
+    color: rgb(9, 9, 121) !important;
 }

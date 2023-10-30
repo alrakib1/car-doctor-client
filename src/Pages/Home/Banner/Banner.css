@@ -22,7 +22,7 @@
 }
 .btn-discover:hover,.btn-latest:hover{
     background-color:rgb(6, 48, 126) !important;
-    color: white;
+    color: white !important;
 }
 
 .btn-discover{
@@ -30,7 +30,7 @@
     
 }
 .btn-latest{
-    color: white;
-    background: linear-gradient(90deg, #151515 0%, rgba(21, 21, 21, 0.00) 100%);
+    color: white !important;
+    background: linear-gradient(90deg, #151515 0%, rgba(21, 21, 21, 0.00) 100%) !important;
     border-radius: 5px;
 }

@@ -15,6 +15,7 @@ const Login = () => {
           // Signed in 
           const user = userCredential.user;
           console.log(user)
+          form.reset();
           // ...
         })
         .catch((error) => {
@@ -66,9 +67,7 @@ const Login = () => {
               </label>
             </div>
             <div className="form-control mt-6">
-              <button className="btn btn-discover text-white normal-case">
-               Log In
-              </button>
+              <input className="btn btn-discover text-white normal-case" type="submit" value="Log In" />
             </div>
           </form>
           <p className="text-center text-[#444] text-lg font-medium mb-7">

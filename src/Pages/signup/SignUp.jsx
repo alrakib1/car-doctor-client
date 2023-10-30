@@ -15,6 +15,7 @@ const SignUp = () => {
         createUser(email,password).then(result=>{
           const user = result.user;
           console.log(user)
+          form.reset();
         }).catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
@@ -76,9 +77,7 @@ const SignUp = () => {
               </label> */}
             </div>
             <div className="form-control mt-6">
-              <button className="btn btn-discover text-white normal-case">
-                Sign Up
-              </button>
+            <input className="btn btn-discover text-white normal-case" type="submit" value="Sign Up" />
             </div>
           </form>
           <p className="text-center text-[#444] text-lg font-medium mb-7">
