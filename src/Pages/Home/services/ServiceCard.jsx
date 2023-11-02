@@ -15,7 +15,7 @@ const ServiceCard = ({ service }) => {
         <h2 className="card-title text-2xl text-[#444] font-bold">{title}</h2>
         <p className="text-[#FF3811] font-semibold text-xl">Price : ${price}</p>
         <div className="card-actions justify-end hover:cursor-pointer">
-          <Link to={`/checkout/${_id}`}>
+          <Link to={`/book/${_id}`}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"

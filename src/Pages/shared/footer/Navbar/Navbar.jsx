@@ -1,8 +1,16 @@
+import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { AuthContext } from "../../../../Providers/AuthProvider";
 import logo from "../../../../assets/images/logo.svg";
 import "./Nav.css";
 
 const Navbar = () => {
+  const { user, logOut } = useContext(AuthContext);
+  const handleLogOut = ()=>{
+    logOut().then(error=>{
+      console.log(error)
+    })
+  }
   const navLinks = (
     <>
       <li className="mr-2">
@@ -20,6 +28,22 @@ const Navbar = () => {
       <li className="mr-2">
         <NavLink to="/d">Contract</NavLink>
       </li>
+      {
+        user &&  <>
+        <li className="mr-2">
+        <NavLink to="/bookings">My Bookings</NavLink>
+      </li>
+      <li className="mr-2" onClick={handleLogOut}>
+        <Link to="/">Log Out</Link>
+      </li>
+        </>
+      
+      }
+      {
+        !user &&  <li>
+        <NavLink to="/login">Login</NavLink>
+      </li>
+      }
     </>
   );
   return (
@@ -57,7 +81,7 @@ const Navbar = () => {
         <ul className="menu menu-horizontal px-1">{navLinks}</ul>
       </div>
       <div className="navbar-end">
-        <button className="btn-ap btn">Appointment</button>
+        <button className="btn-ap p-1 md:p-2 btn">Appointment</button>
       </div>
     </div>
   );

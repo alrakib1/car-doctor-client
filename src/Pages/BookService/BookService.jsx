@@ -1,30 +1,62 @@
+import { useContext } from "react";
 import { useLoaderData } from "react-router-dom";
+import Swal from "sweetalert2";
+import { AuthContext } from "../../Providers/AuthProvider";
 import Footer from "../shared/footer/Footer";
 
-const CheckOut = () => {
-  const service = useLoaderData();
+const BookService = () => {
+  const { title, _id, price, img } = useLoaderData();
+  const { user } = useContext(AuthContext);
+
   const handleConfirm = (e) => {
     e.preventDefault();
     const form = e.target;
-    const firstName = e.target.first.value;
-    const lastName = e.target.last.value;
+    const name = e.target.name.value;
+    const date = e.target.date.value;
     const phone = e.target.phone.value;
     const email = e.target.email.value;
-    const message = e.target.message.value;
-    console.log(firstName, lastName, phone, email, message);
+    const booking = {
+      customerName: name,
+      email,
+      date,
+      phone,
+      service_id: _id,
+      price: price,
+      service: title,
+      img,
+    };
+    fetch("https://car-doctor-server-orcin-six.vercel.app/bookings", {
+      method: "post",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(booking),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        // console.log(data)
+        if (data.insertedId) {
+          Swal.fire("Service has been added");
+          form.reset();
+        }
+      });
   };
-
   return (
     <div>
       <div className="mb-24">
         <div className="pt-20 pb-20 bg-[#F3F3F3]">
           <div className="w-5/6 mx-auto p-10 shadow-2xl bg-base-100">
-            <form className="grid grid-cols-1 md:grid-cols-2 gap-7" onSubmit={handleConfirm}>
+            <h2 className="text-center text-4xl mb-6">Book Service : {title}</h2>
+            <form
+              className="grid grid-cols-1 md:grid-cols-2 gap-7"
+              onSubmit={handleConfirm}
+            >
               <div className="form-control">
                 <input
                   type="text"
-                  name="first"
-                  placeholder="First Name"
+                  name="name"
+                  defaultValue={user?.name}
+                  placeholder="Name"
                   className="input input-bordered"
                   required
                 />
@@ -32,9 +64,8 @@ const CheckOut = () => {
 
               <div className="form-control">
                 <input
-                  type="text"
-                  name="last"
-                  placeholder="Last Name"
+                  type="date"
+                  name="date"
                   className="input input-bordered"
                   required
                 />
@@ -53,17 +84,12 @@ const CheckOut = () => {
                   type="email"
                   name="email"
                   placeholder="Your Email"
+                  defaultValue={user?.email}
                   className="input input-bordered"
                   required
                 />
               </div>
-              <textarea
-                name="message"
-                className="w-full p-4 md:col-span-2 border rounded-xl"
-                cols="30"
-                rows="10"
-                placeholder="Your Message"
-              ></textarea>
+
               <div className="form-control w-full mx-auto md:col-span-2  mt-6">
                 <input
                   className="btn w-full btn-discover text-white normal-case"
@@ -80,4 +106,4 @@ const CheckOut = () => {
   );
 };
 
-export default CheckOut;
+export default BookService;

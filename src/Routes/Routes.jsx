@@ -1,10 +1,13 @@
 import { createBrowserRouter } from "react-router-dom";
 
-import Root from "./Root";
+import BookService from "../Pages/BookService/BookService";
+import Bookings from "../Pages/Bookings/Bookings";
+import CheckOut from "../Pages/CheckOut/CheckOut";
 import Home from "../Pages/Home/Home";
 import Login from "../Pages/LogIn/Login";
 import SignUp from "../Pages/signup/SignUp";
-import CheckOut from "../Pages/CheckOut/CheckOut";
+import PrivateRoute from "./PrivateRoute";
+import Root from "./Root";
 
 const router = createBrowserRouter([
   {
@@ -14,18 +17,36 @@ const router = createBrowserRouter([
       { path: "/", element: <Home></Home> },
       {
         path: "/login",
-        element: <Login></Login>
+        element: <Login></Login>,
       },
       {
         path: "/register",
-        element: <SignUp></SignUp>
+        element: <SignUp></SignUp>,
       },
       {
-        path:'/checkout/:id',
-        element:<CheckOut></CheckOut>,
-        loader: ({params})=> fetch(`https://car-doctor-server-orcin-six.vercel.app/services/${params.id}`)
-      }
-
+        path: "/checkout/:id",
+        element: <CheckOut></CheckOut>,
+        loader: ({ params }) =>
+          fetch(
+            `https://car-doctor-server-orcin-six.vercel.app/services/${params.id}`
+          ),
+      },
+      {
+        path: "/book/:id",
+        element: <BookService></BookService>,
+        loader: ({ params }) =>
+          fetch(
+            `https://car-doctor-server-orcin-six.vercel.app/services/${params.id}`
+          ),
+      },
+      {
+        path: "/bookings",
+        element: (
+          <PrivateRoute>
+            <Bookings></Bookings>
+          </PrivateRoute>
+        ),
+      },
     ],
   },
 ]);

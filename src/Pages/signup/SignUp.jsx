@@ -1,10 +1,12 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import login from "../../assets/images/login/login.svg";
 import { useContext } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
+import Swal from "sweetalert2";
 
 const SignUp = () => {
-  const {createUser} = useContext(AuthContext)
+  const {createUser} = useContext(AuthContext);
+  const navigate = useNavigate();
     const handleSignUp = e=>{
         e.preventDefault();
         const form = e.target;
@@ -14,8 +16,13 @@ const SignUp = () => {
         console.log(name,email,password)
         createUser(email,password).then(result=>{
           const user = result.user;
-          console.log(user)
+          if(user){
+            Swal.fire('SignUp successful!')
+          }
           form.reset();
+          setTimeout(() => {
+            navigate('/')
+          }, 2000);
         }).catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
