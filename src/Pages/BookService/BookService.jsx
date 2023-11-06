@@ -25,7 +25,7 @@ const BookService = () => {
       service: title,
       img,
     };
-    fetch("https://car-doctor-server-orcin-six.vercel.app/bookings", {
+    fetch("http://localhost:5000/bookings", {
       method: "post",
       headers: {
         "content-type": "application/json",
@@ -46,7 +46,9 @@ const BookService = () => {
       <div className="mb-24">
         <div className="pt-20 pb-20 bg-[#F3F3F3]">
           <div className="w-5/6 mx-auto p-10 shadow-2xl bg-base-100">
-            <h2 className="text-center text-4xl mb-6">Book Service : {title}</h2>
+            <h2 className="text-center text-4xl mb-6">
+              Book Service : {title}
+            </h2>
             <form
               className="grid grid-cols-1 md:grid-cols-2 gap-7"
               onSubmit={handleConfirm}

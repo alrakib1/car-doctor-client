@@ -1,30 +1,40 @@
-import { Link } from "react-router-dom";
-import login from "../../assets/images/login/login.svg";
+import axios from "axios";
 import { useContext } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Providers/AuthProvider";
+import login from "../../assets/images/login/login.svg";
 
 const Login = () => {
-  const {signIn} = useContext(AuthContext);
-    const handleLogIn =e =>{
-        e.preventDefault();
-        const form = e.target;
-        const email = e.target.email.value;
-        const password = e.target.password.value;
-        console.log(email,password)
-        signIn(email,password) .then((userCredential) => {
-          // Signed in 
-          const user = userCredential.user;
-          console.log(user)
-          form.reset();
-          // ...
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          console.log(errorCode,errorMessage)
-        });
-      
-    }
+  const { signIn } = useContext(AuthContext);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const handleLogIn = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    // console.log(email, password);
+    signIn(email, password)
+      .then((result) => {
+        // Signed in
+        // const user = userCredential.user;
+        // console.log(user);
+        console.log(result);
+        // const loggedInUser = result.user;
+        const user = { email };
+        //  get access token
+        axios
+          .post("http://localhost:5000/jwt", user, { withCredentials: true })
+          .then((res) => {
+            console.log(res.data);
+          });
+      })
+      .catch((error) => {
+        // const errorCode = error.code;
+        // const errorMessage = error.message;
+        // // console.log(errorCode, errorMessage);
+      });
+  };
   return (
     <div className="min-h-screen">
       <div className="flex flex-col gap-16 md:flex-row">
@@ -67,7 +77,11 @@ const Login = () => {
               </label>
             </div>
             <div className="form-control mt-6">
-              <input className="btn btn-discover text-white normal-case" type="submit" value="Log In" />
+              <input
+                className="btn btn-discover text-white normal-case"
+                type="submit"
+                value="Log In"
+              />
             </div>
           </form>
           <p className="text-center text-[#444] text-lg font-medium mb-7">
@@ -149,7 +163,13 @@ const Login = () => {
               </svg>
             </div>
           </div>
-          <p className=" text-center mb-5">Don't have an account? <Link to='/register' className="text-[#FF3811] font-bold">Sign Up</Link> here</p>
+          <p className=" text-center mb-5">
+            Don't have an account?{" "}
+            <Link to="/register" className="text-[#FF3811] font-bold">
+              Sign Up
+            </Link>{" "}
+            here
+          </p>
         </div>
       </div>
     </div>

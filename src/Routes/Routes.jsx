@@ -27,17 +27,13 @@ const router = createBrowserRouter([
         path: "/checkout/:id",
         element: <CheckOut></CheckOut>,
         loader: ({ params }) =>
-          fetch(
-            `https://car-doctor-server-orcin-six.vercel.app/services/${params.id}`
-          ),
+          fetch(`http://localhost:5000/services/${params.id}`),
       },
       {
         path: "/book/:id",
         element: <BookService></BookService>,
         loader: ({ params }) =>
-          fetch(
-            `https://car-doctor-server-orcin-six.vercel.app/services/${params.id}`
-          ),
+          fetch(`http://localhost:5000/services/${params.id}`),
       },
       {
         path: "/bookings",

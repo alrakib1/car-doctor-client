@@ -4,7 +4,7 @@ import ServiceCard from "./ServiceCard";
 const Services = () => {
   const [services, setServices] = useState([]);
   useEffect(() => {
-    fetch("https://car-doctor-server-orcin-six.vercel.app/services")
+    fetch("http://localhost:5000/services")
       .then((res) => res.json())
       .then((data) => setServices(data));
   }, []);
@@ -25,9 +25,9 @@ const Services = () => {
         ))}
       </div>
       <div className="flex justify-center items-center mb-20">
-      <button className="border hover:bg-[#06307E] hover:text-white hover:border-0 border-[#FF3811] p-4 rounded-md font-semibold text-sm text-[#FF3811]">
-        More Services
-      </button>
+        <button className="border hover:bg-[#06307E] hover:text-white hover:border-0 border-[#FF3811] p-4 rounded-md font-semibold text-sm text-[#FF3811]">
+          More Services
+        </button>
       </div>
     </div>
   );
