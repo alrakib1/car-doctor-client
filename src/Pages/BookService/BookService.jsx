@@ -25,7 +25,7 @@ const BookService = () => {
       service: title,
       img,
     };
-    fetch("http://localhost:5000/bookings", {
+    fetch("https://car-doctor-server-orcin-six.vercel.app/bookings", {
       method: "post",
       headers: {
         "content-type": "application/json",

@@ -1,13 +1,15 @@
-import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
+import UseAxiosSecure from "../../hooks/UseAxiosSecure";
 import BookingRow from "./BookingRow";
 
 const Bookings = () => {
   const { user } = useContext(AuthContext);
   const [bookings, setBookings] = useState([]);
+  const axiosSecure = UseAxiosSecure();
 
-  const url = `http://localhost:5000/bookings?email=${user?.email}`;
+  // const url = `https://car-doctor-server-orcin-six.vercel.app/bookings?email=${user?.email}`;
+  const url = `/bookings?email=${user?.email}`;
   useEffect(() => {
     // fetch(url)
     //   .then((res) => res.json())
@@ -15,15 +17,15 @@ const Bookings = () => {
     //     // console.log(data);
     //     setBookings(data);
     //   });
-    axios.get(url, { withCredentials: true }).then((res) => {
+    axiosSecure.get(url).then((res) => {
       setBookings(res.data);
     });
-  }, [url]);
+  }, [url, axiosSecure]);
 
   const handleDelete = (id) => {
     const proceed = confirm("are you sure ?");
     if (proceed) {
-      fetch(`http://localhost:5000/bookings/${id}`, {
+      fetch(`https://car-doctor-server-orcin-six.vercel.app/bookings/${id}`, {
         method: "delete",
       })
         .then((res) => res.json())
@@ -38,7 +40,7 @@ const Bookings = () => {
     }
   };
   const handleConfirm = (id) => {
-    fetch(`http://localhost:5000/bookings/${id}`, {
+    fetch(`https://car-doctor-server-orcin-six.vercel.app/bookings/${id}`, {
       method: "patch",
       headers: {
         "content-type": "application/json",

@@ -10,7 +10,7 @@ const Login = () => {
   const navigate = useNavigate();
   const handleLogIn = (e) => {
     e.preventDefault();
-    const form = e.target;
+    // const form = e.target;
     const email = e.target.email.value;
     const password = e.target.password.value;
     // console.log(email, password);
@@ -24,12 +24,14 @@ const Login = () => {
         const user = { email };
         //  get access token
         axios
-          .post("http://localhost:5000/jwt", user, { withCredentials: true })
+          .post("https://car-doctor-server-orcin-six.vercel.app/jwt", user, {
+            withCredentials: true,
+          })
           .then((res) => {
             console.log(res.data);
           });
       })
-      .catch((error) => {
+      .catch(() => {
         // const errorCode = error.code;
         // const errorMessage = error.message;
         // // console.log(errorCode, errorMessage);

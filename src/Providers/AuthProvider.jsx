@@ -1,3 +1,4 @@
+import axios from "axios";
 import {
   createUserWithEmailAndPassword,
   getAuth,
@@ -32,14 +33,38 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      const userEmail = currentUser?.email || user?.email;
+      const loggedUser = { email: userEmail };
       setUser(currentUser);
       // console.log("current user", currentUser);
       setLoading(false);
+      // if user exists then issue a token
+      if (currentUser) {
+        axios
+          .post(
+            "https://car-doctor-server-orcin-six.vercel.app/jwt",
+            loggedUser,
+            { withCredentials: true }
+          )
+          .then((res) => {
+            console.log("token response", res.data);
+          });
+      } else {
+        axios
+          .post(
+            "https://car-doctor-server-orcin-six.vercel.app/logout",
+            loggedUser,
+            { withCredentials: true }
+          )
+          .then((res) => {
+            console.log(res.data);
+          });
+      }
     });
     return () => {
       unsubscribe();
     };
-  }, []);
+  }, [user?.email]);
 
   const authInfo = {
     user,
